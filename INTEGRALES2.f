@@ -1,0 +1,90 @@
+        program integrales
+        implicit none
+        real*8 a,b,x
+        !variables que voy a usar en el metodo del trapecio
+        real*8 h ,trapecio, sum, res, xk
+        !Variables que voy a usar en el metodo de simpson
+        real*8 i, sum1, sum2, h1 ,xi,res1, simpson
+        real*8 mif, ferror, error
+         a=0d0
+         b=1d0/2d0
+         error=ferror*(2/sqrt(3.141592))
+        integer*8 k, n
+        write(*,*) 'Introduzca el grado del polinomio'
+        read(*,*) n
+        
+
+         do while (error.lt.10**(-4))
+        
+        
+        !CALCULO DE LA INTEGRAL POR EL METODO DEL TRAPECIO
+
+        h=(b-a)/(dble(n))
+        sum=0d0
+        do k=1, n-1
+        xk=a+k*h
+        sum=sum+mif(xk)
+        enddo
+
+        res=0d0
+        res=res+mif(a)+mif(b)+(2*sum)
+        trapecio=(h*res)/2d0
+
+        write(*,*) 'Integral calculada por el metodo del trapecio'
+        write(*,*) trapecio
+
+        !CALCULO DE LA INTEGRAL POR EL METODO DE SIMPSON
+        h1=(b-a)/(2*(dble(n)))
+        
+        sum1=0d0
+        xi=0d0
+        do i=1d0, n-1
+        xi=a+2*i*h1
+        sum1=sum1+mif(xi)
+        enddo
+        
+        sum2=0d0
+        xi=0d0
+        do i=1d0,n
+        xi=a+(2*i-1)*h1
+        sum2=sum2+mif(xi)
+        enddo
+        
+        res1=0d0
+        res1=res1+(2*sum1)+(4*sum2)+mif(a)+mif(b)
+
+        simpson=(h1*res1)/3
+        write(*,*) 'Integral calculada por el metodo de simpson'
+        write(*,*) simpson
+        
+        enddo
+        pause
+        stop
+        end
+
+
+
+       real*8 function mif(u,n)
+       implicit none
+       real*8 u,n,valor1,valor2, error
+       mif=(u**n)/(((2.71828)**u)-1)
+       valor1=mif
+       valor2=(u**(n+1))/(((2.718 b28)**u)-1)
+       error=sqrt(valor1**2-valor2**2)
+
+       
+
+
+       return
+       end
+       
+
+       real*8 function ferror(u)
+       implicit none
+       real*8 u
+       ferror=2.71828d0**(-u**2)
+       return
+       end
+
+
+

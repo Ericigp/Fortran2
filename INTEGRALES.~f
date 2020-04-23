@@ -1,0 +1,47 @@
+        program integrales
+        implicit none
+        real*8 x, a, b, h , trapecio, sum, res, xk,i
+        real*8 mif
+
+        integer*8 k, n
+        write(*,*) 'Introduzca el grado del polinomio'
+        read(*,*) n
+        
+        mif=x**2
+        a=0d0
+        b=1d0
+        h=(b-a)/(dble(n))
+
+        sum=0d0
+        do k=1, n-1
+        xk=a+k*h
+        sum=sum+xk**2
+        enddo
+        
+        res=0d0
+        res=res+a**2+b**2+(2*sum)
+        trapecio=(h*res)/2d0
+        
+        write(*,*) 'Integral calculada por el metodo del trapecio'
+        write(*,*) trapecio
+        
+        
+        h=(b-a)/(2d0*n)
+        
+
+        pause
+        stop
+        end
+        
+        
+        
+       real*8 function mif(x)
+       implicit none
+       real*8 x
+       mif=x**2
+       return
+       end
+        
+        
+        
+
